@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:DoPad/shopping/shoppingmodel/shoppingmodel.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -11,7 +10,7 @@ const kShoppingTodosStatusDone = 1;
 const kDatabaseName = 'shoppingtodos.db';
 const kDatabaseVersion = 1;
 const kSQLCreateStatement = '''
-CREATE TABLE "Shoppingtodos" (
+CREATE TABLE "shoppingtodos" (
 	 "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	 "title" TEXT NOT NULL,
 	 "created" text NOT NULL,
@@ -52,11 +51,10 @@ class DB {
         where: 'id=?', whereArgs: [shoppingtodo.id]);
   }
 
-  // ignore: non_constant_identifier_names
-  void deleteShoppingTodo(ShoppingTodo Shoppingtodo) async {
+  void deleteShoppingTodo(ShoppingTodo shoppingtodo) async {
     final db = await database;
     await db.delete(kShoppingTableTodos,
-        where: 'id=?', whereArgs: [Shoppingtodo.id]);
+        where: 'id=?', whereArgs: [shoppingtodo.id]);
   }
 
   void deleteAllShoppingTodos({int status = kShoppingTodosStatusDone}) async {

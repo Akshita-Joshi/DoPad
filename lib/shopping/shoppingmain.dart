@@ -29,7 +29,7 @@ class _HomeScreen4State extends State<HomeScreen4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Color(0XFF98D6EE),
       body: SafeArea(
         child: GestureDetector(
           onTap: () {
@@ -38,7 +38,7 @@ class _HomeScreen4State extends State<HomeScreen4> {
           child: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Color(0XFF98D6EE),
                 floating: true,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Column(

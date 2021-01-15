@@ -11,7 +11,7 @@ const kLifeTodosStatusDone = 1;
 const kDatabaseName = 'lifetodos.db';
 const kDatabaseVersion = 1;
 const kSQLCreateStatement = '''
-CREATE TABLE "Lifetodos" (
+CREATE TABLE "lifetodos" (
 	 "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	 "title" TEXT NOT NULL,
 	 "created" text NOT NULL,
