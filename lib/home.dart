@@ -1,3 +1,5 @@
+import 'package:DoPad/life/lifemain.dart';
+import 'package:DoPad/personal/personalmain.dart';
 import 'package:DoPad/work/workmain.dart';
 import 'package:flutter/material.dart';
 import 'package:imagebutton/imagebutton.dart';
@@ -76,7 +78,14 @@ class Home extends StatelessWidget {
                   ),
                   unpressedImage: Image.asset("asset/Personal.png"),
                   onTap: () {
-                    print('test');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HomeScreen2();
+                        },
+                      ),
+                    );
                   },
                 ),
               ],
@@ -97,7 +106,14 @@ class Home extends StatelessWidget {
                   ),
                   unpressedImage: Image.asset("asset/Life.png"),
                   onTap: () {
-                    print('test');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HomeScreen3();
+                        },
+                      ),
+                    );
                   },
                 ),
                 SizedBox(

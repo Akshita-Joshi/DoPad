@@ -1,20 +1,21 @@
+import 'package:DoPad/life/lifeutils/lifecolors.dart';
 import 'package:flutter/material.dart';
-import 'package:DoPad/personal/personalwidgets/personalshared.dart';
-import 'package:DoPad/personalmodel.dart' as Model;
-import 'package:DoPad/personal/personalutils/personalcolors.dart';
+import 'package:DoPad/life/lifewidgets/lifeshared.dart';
+import 'package:DoPad/life/lifemodel/lifemodel.dart' as Model;
+//import 'package:DoPad/life/lifeutils/lifecolors.dart';
 
-class PersonalDone extends StatefulWidget {
+class LifeDone extends StatefulWidget {
   final Function onTap;
   final Function onDeleteTask;
-  final List<Model.PersonalTodo> personaldones;
+  final List<Model.LifeTodo> lifedones;
 
-  PersonalDone({@required this.personaldones, this.onTap, this.onDeleteTask});
+  LifeDone({@required this.lifedones, this.onTap, this.onDeleteTask});
 
   @override
-  _PersonalDoneState createState() => _PersonalDoneState();
+  _LifeDoneState createState() => _LifeDoneState();
 }
 
-class _PersonalDoneState extends State<PersonalDone> {
+class _LifeDoneState extends State<LifeDone> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,15 +28,14 @@ class _PersonalDoneState extends State<PersonalDone> {
               SizedBox(
                 height: 50,
               ),
-              if (widget.personaldones == null ||
-                  widget.personaldones.length == 0)
+              if (widget.lifedones == null || widget.lifedones.length == 0)
                 Container(
                   height: 10,
                 ),
-              if (widget.personaldones != null)
-                for (int i = widget.personaldones.length - 1; i >= 0; --i)
+              if (widget.lifedones != null)
+                for (int i = widget.lifedones.length - 1; i >= 0; --i)
                   getTaskItem(
-                    widget.personaldones[i].title,
+                    widget.lifedones[i].title,
                     index: i,
                     onTap: () {
                       widget.onTap(pos: i);
@@ -47,7 +47,7 @@ class _PersonalDoneState extends State<PersonalDone> {
         SharedWidget.getCardHeader(
             context: context,
             text: 'DONE',
-            backgroundColorCode: PersonalTodosColor.kSecondaryColorCode,
+            backgroundColorCode: LifeTodosColor.kSecondaryColorCode,
             customFontSize: 16),
       ],
     );
@@ -63,7 +63,7 @@ class _PersonalDoneState extends State<PersonalDone> {
           key: Key(text + '$index'),
           direction: DismissDirection.endToStart,
           onDismissed: (direction) {
-            widget.onDeleteTask(todo: widget.personaldones[index]);
+            widget.onDeleteTask(todo: widget.lifedones[index]);
           },
           background: SharedWidget.getOnDismissDeleteBackground(),
           child: InkWell(
@@ -88,6 +88,7 @@ class _PersonalDoneState extends State<PersonalDone> {
                         text,
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.justify,
+                        // ignore: deprecated_member_use
                         style: Theme.of(context).textTheme.title.copyWith(
                               color: Colors.grey[300],
                               decoration: TextDecoration.lineThrough,

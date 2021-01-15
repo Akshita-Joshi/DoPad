@@ -1,28 +1,28 @@
-import 'package:DoPad/personaltodo.dart';
+import 'package:DoPad/life/lifewidgets/lifetodo.dart';
 import 'package:flutter/material.dart';
-import 'package:DoPad/personal/personalwidgets/personalheader.dart';
-import 'package:DoPad/personal/personalwidgets/personaltask_input.dart';
-import 'package:DoPad/personal/personalwidgets/personaldone.dart';
-import 'package:DoPad/personalmodel.dart' as Model;
-import 'package:DoPad/personal/personalmodel/personaldb_wrapper.dart';
-import 'package:DoPad/personal/personalutils/personalutils.dart';
-import 'package:DoPad/personal/personalwidgets/personalpopup.dart';
+import 'package:DoPad/life/lifewidgets/lifeheader.dart';
+import 'package:DoPad/life/lifewidgets/lifetask_input.dart';
+import 'package:DoPad/life/lifewidgets/lifedone.dart';
+import 'package:DoPad/life/lifemodel/lifemodel.dart' as Model;
+import 'package:DoPad/life/lifemodel/lifedb_wrapper.dart';
+import 'package:DoPad/life/lifeutils/lifeutils.dart';
+import 'package:DoPad/life/lifewidgets/lifepopup.dart';
 
-class HomeScreen2 extends StatefulWidget {
+class HomeScreen3 extends StatefulWidget {
   @override
-  _HomeScreen2State createState() => _HomeScreen2State();
+  _HomeScreen3State createState() => _HomeScreen3State();
 }
 
-class _HomeScreen2State extends State<HomeScreen2> {
+class _HomeScreen3State extends State<HomeScreen3> {
   String welcomeMsg;
-  List<Model.PersonalTodo> personaltodos;
-  List<Model.PersonalTodo> personaldones;
+  List<Model.LifeTodo> lifetodos;
+  List<Model.LifeTodo> lifedones;
   //String _selection;
 
   @override
   void initState() {
     super.initState();
-    getPersonalTodosAndPersonalDones();
+    getLifeTodosAndLifeDones();
     welcomeMsg = Utils.getWelcomeMessage();
   }
 
@@ -58,8 +58,8 @@ class _HomeScreen2State extends State<HomeScreen2> {
                                     Container(
                                       margin: EdgeInsets.only(top: 35),
                                       child: Popup(
-                                        getPersonalTodosAndPersonalDones:
-                                            getPersonalTodosAndPersonalDones,
+                                        getLifeTodosAndLifeDones:
+                                            getLifeTodosAndLifeDones,
                                       ),
                                     ),
                                   ],
@@ -68,7 +68,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                               Container(
                                 margin: EdgeInsets.only(top: 20),
                                 child: TaskInput(
-                                  onSubmitted: addTaskInPersonalTodo,
+                                  onSubmitted: addTaskInLifeTodo,
                                 ), // Add Todos
                               ),
                             ],
@@ -85,9 +85,9 @@ class _HomeScreen2State extends State<HomeScreen2> {
                   (context, index) {
                     switch (index) {
                       case 0:
-                        return PersonalTodo(
-                          personaltodos: personaltodos,
-                          onTap: markPersonalTodoAsPersonalDone,
+                        return LifeTodo(
+                          lifetodos: lifetodos,
+                          onTap: markLifeTodoAsLifeDone,
                           onDeleteTask: deleteTask,
                         ); // Active todos
                       case 1:
@@ -95,9 +95,9 @@ class _HomeScreen2State extends State<HomeScreen2> {
                           height: 30,
                         );
                       default:
-                        return PersonalDone(
-                          personaldones: personaldones,
-                          onTap: markPersonalDoneAsPersonalTodo,
+                        return LifeDone(
+                          lifedones: lifedones,
+                          onTap: markLifeDoneAsLifeTodo,
                           onDeleteTask: deleteTask,
                         ); // Done todos
                     }
@@ -112,30 +112,30 @@ class _HomeScreen2State extends State<HomeScreen2> {
     );
   }
 
-  void getPersonalTodosAndPersonalDones() async {
-    final _personaltodos = await DBWrapper.sharedInstance.getPersonalTodos();
-    final _personaldones = await DBWrapper.sharedInstance.getPersonalDones();
+  void getLifeTodosAndLifeDones() async {
+    final _lifetodos = await DBWrapper.sharedInstance.getLifeTodos();
+    final _lifedones = await DBWrapper.sharedInstance.getLifeDones();
 
     setState(() {
-      personaltodos = _personaltodos.cast<Model.PersonalTodo>();
-      personaldones = _personaldones.cast<Model.PersonalTodo>();
+      lifetodos = _lifetodos.cast<Model.LifeTodo>();
+      lifedones = _lifedones.cast<Model.LifeTodo>();
     });
   }
 
-  void addTaskInPersonalTodo({@required TextEditingController controller}) {
+  void addTaskInLifeTodo({@required TextEditingController controller}) {
     final inputText = controller.text.trim();
 
     if (inputText.length > 0) {
       // Add todos
-      Model.PersonalTodo personaltodo = Model.PersonalTodo(
+      Model.LifeTodo lifetodo = Model.LifeTodo(
         title: inputText,
         created: DateTime.now(),
         updated: DateTime.now(),
-        status: Model.PersonalTodoStatus.active.index,
+        status: Model.LifeTodoStatus.active.index,
       );
 
-      DBWrapper.sharedInstance.addPersonalTodo(personaltodo);
-      getPersonalTodosAndPersonalDones();
+      DBWrapper.sharedInstance.addLifeTodo(lifetodo);
+      getLifeTodosAndLifeDones();
     } else {
       Utils.hideKeyboard(context);
     }
@@ -143,18 +143,18 @@ class _HomeScreen2State extends State<HomeScreen2> {
     controller.text = '';
   }
 
-  void markPersonalTodoAsPersonalDone({@required int pos}) {
-    DBWrapper.sharedInstance.markPersonalTodoAsPersonalDone(personaltodos[pos]);
-    getPersonalTodosAndPersonalDones();
+  void markLifeTodoAsLifeDone({@required int pos}) {
+    DBWrapper.sharedInstance.markLifeTodoAsLifeDone(lifetodos[pos]);
+    getLifeTodosAndLifeDones();
   }
 
-  void markPersonalDoneAsPersonalTodo({@required int pos}) {
-    DBWrapper.sharedInstance.markPersonalDoneAsPersonalTodo(personaldones[pos]);
-    getPersonalTodosAndPersonalDones();
+  void markLifeDoneAsLifeTodo({@required int pos}) {
+    DBWrapper.sharedInstance.markLifeDoneAsLifeTodo(lifedones[pos]);
+    getLifeTodosAndLifeDones();
   }
 
-  void deleteTask({@required Model.PersonalTodo personaltodo}) {
-    DBWrapper.sharedInstance.deletePersonalTodo(personaltodo);
-    getPersonalTodosAndPersonalDones();
+  void deleteTask({@required Model.LifeTodo lifetodo}) {
+    DBWrapper.sharedInstance.deleteLifeTodo(lifetodo);
+    getLifeTodosAndLifeDones();
   }
 }
