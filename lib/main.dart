@@ -40,9 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                'asset/checklists.png',
-                height: 200,
-                width: 200,
+                'asset/icons8-checklist-100.png',
+                height: 350,
+                width: 350,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
@@ -53,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   "DoPad",
                   style: TextStyle(
                     fontFamily: "Alegreya",
+                    fontStyle: FontStyle.italic,
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
