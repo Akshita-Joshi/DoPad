@@ -1,5 +1,6 @@
 import 'package:DoPad/life/lifemain.dart';
 import 'package:DoPad/personal/personalmain.dart';
+import 'package:DoPad/shopping/shoppingmain.dart';
 import 'package:DoPad/work/workmain.dart';
 import 'package:flutter/material.dart';
 import 'package:imagebutton/imagebutton.dart';
@@ -130,15 +131,22 @@ class Home extends StatelessWidget {
                   ),
                   unpressedImage: Image.asset("asset/Shopping.png"),
                   onTap: () {
-                    print('test');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HomeScreen4();
+                        },
+                      ),
+                    );
                   },
                 ),
               ],
             ),
-            SizedBox(
-              width: size.width * 0.03,
-              height: size.height * 0.04,
-            ),
+            // SizedBox(
+            //   width: size.width * 0.03,
+            //   height: size.height * 0.04,
+            // ),
           ],
         )),
       ),
